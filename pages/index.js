@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 
 
 export default function Home() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch,setError, formState: { errors } } = useForm();
+  const { onChange:onPasswordChange, ...rest } = register("username");
   const onSubmit = data => console.log(data);
   return (
     <div className={styles.container}>
@@ -20,15 +21,24 @@ export default function Home() {
           Welcome to Form Test
         </h1>
         <div style={{ display: "flex" }}>
-          <form style={{ display: "flex", flexDirection: "column", gap: "16px", marginRight: "24px", padding: "24px" }} onSubmit={handleSubmit(onSubmit)}>
-            <input defaultValue="test" {...register("example")} />
-            <input {...register("exampleRequired")} />
-            {errors.exampleRequired && <span>This field is required</span>}
+          <form style={{ width:"50%", display: "flex", flexDirection: "column", gap: "16px", marginRight: "24px", padding: "24px" }} onSubmit={handleSubmit(onSubmit)}>
+            <label for="name"/>
+            <input {...register("name")} />
+            <input onChange={(e)=>{
+                setError("password", {
+                  type: "manual",
+                  message: "Dont Forget Your Password is visible!",
+                })
+                onPasswordChange(e);
+              }
+            } />
+            {errors.password && <span>Password is visible man</span>}
             <button type="submit">Submit</button>
           </form>
-          <div>
+          <div style={{width:"50%", padding:24}}>
             <h3>Outputs</h3>
-            {watch("example")}
+            <p>Name :{watch("name")} </p>
+  
           </div>
         </div>
       </main>
