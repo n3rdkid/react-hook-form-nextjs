@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 
 
 export default function Home() {
-  const { register, handleSubmit, watch,setError, formState: { errors } } = useForm();
-  const { onChange:onPasswordChange, ...rest } = register("username");
+  const { register, handleSubmit, watch,setError, trigger,formState: { errors } } = useForm();
+  const { onChange:onPasswordChange, ...rest } = register("password",{minLength:5});
   const onSubmit = data => console.log(data);
   return (
     <div className={styles.container}>
@@ -25,11 +25,8 @@ export default function Home() {
             <label for="name"/>
             <input {...register("name")} />
             <input onChange={(e)=>{
-                setError("password", {
-                  type: "manual",
-                  message: "Dont Forget Your Password is visible!",
-                })
-                onPasswordChange(e);
+                         onPasswordChange(e);
+                         trigger();
               }
             } />
             {errors.password && <span>Password is visible man</span>}
