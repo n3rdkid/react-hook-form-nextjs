@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 
 
 export default function Home() {
-  const { register, handleSubmit, watch,setError, trigger,formState: { errors } } = useForm();
-  const { onChange:onPasswordChange, ...rest } = register("password",{minLength:5});
+  const { register, handleSubmit, watch,setError, trigger,formState: { errors,touchedFields } } = useForm({mode: "onBlur"});
   const onSubmit = data => console.log(data);
+  console.log("TOUCHED FIELDS",touchedFields)
   return (
     <div className={styles.container}>
       <Head>
@@ -22,13 +22,9 @@ export default function Home() {
         </h1>
         <div style={{ display: "flex" }}>
           <form style={{ width:"50%", display: "flex", flexDirection: "column", gap: "16px", marginRight: "24px", padding: "24px" }} onSubmit={handleSubmit(onSubmit)}>
-            <label for="name"/>
+            <label/>
             <input {...register("name")} />
-            <input onChange={(e)=>{
-                         onPasswordChange(e);
-                         trigger();
-              }
-            } />
+            <input  {...register("password",{minLength:5})}/>
             {errors.password && <span>Password is visible man</span>}
             <button type="submit">Submit</button>
           </form>
