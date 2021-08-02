@@ -1,10 +1,11 @@
 Test out the following: 
 
 - [ ] Need to be able to access value anywhere  (formik.values.[name])
-    watch("Name")
-    getValues("yourDetails") // Doesn't subscribe to changes or cause re-render
+    
+    - watch("Name")
+    - getValues("yourDetails") // Doesn't subscribe to changes or cause re-render
 - [ ] Handle Blur events (So that we can show errors only after form itmes have been touched )
-     We have access to touchFields...
+     - We have access to touchFields...
      - useForm({mode:"blur"})
 - [ ] Access to errors 
       - errors.[field_name] // single error
